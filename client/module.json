@@ -1,0 +1,42 @@
+{
+  "name": "paint",
+  "version": "1.0.0",
+  "license": "MIT",
+  "homepage": "https://github.com/hacklover/owd-paint",
+  "author": {
+    "name": "hacklover",
+    "url": "https://hacklover.net"
+  },
+  "commands": true,
+  "store": true,
+  "windows": [
+    {
+      "name": "WindowPaint",
+      "title": "Paint",
+      "icon": {
+        "name": "format-color-fill",
+        "offset": {
+          "x": 1,
+          "y": 5
+        },
+        "size": "29px"
+      },
+      "window": {
+        "menu": false,
+        "closed": true,
+        "minimized": false,
+        "resizable": true,
+        "maximizable": true,
+        "width": 480,
+        "height": 320,
+        "x": 0,
+        "y": 0,
+        "z": 0
+      }
+    }
+  ],
+  "dependencies": {
+    "p5": "^0.10.2",
+    "vue-color": "^2.7.0"
+  }
+}
