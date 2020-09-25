@@ -3,31 +3,13 @@
 
     <div class="paint-nav-buttons">
 
-      <div class="button">
-        <div
-          class="button-inner"
-          v-ripple="'rgba(255, 255, 255, 0.1)'"
-          @click="$store.commit('paint/NEW_FILE')"
-        >
-          <v-icon>mdi-file</v-icon>
-        </div>
-      </div>
+      <PaintNavButtonNewFile :store-name="storeName" />
+      <PaintNavButtonSave :store-name="storeName" />
 
-      <div class="button">
-        <div
-          class="button-inner"
-          v-ripple="'rgba(255, 255, 255, 0.1)'"
-          @click="$store.commit('paint/SAVE_FILE')"
-        >
-          <v-icon>mdi-content-save</v-icon>
-        </div>
-      </div>
+      <PaintNavButtonSquare :store-name="storeName" />
+      <PaintNavButtonEllipse :store-name="storeName" />
 
-      <PaintNavButtonSquare />
-
-      <PaintNavButtonEllipse />
-
-      <PaintNavColors />
+      <PaintNavColors :store-name="storeName" />
 
     </div>
 
@@ -35,12 +17,18 @@
 </template>
 
 <script>
-  import PaintNavColors from "./PaintNavColors";
-  import PaintNavButtonSquare from "./PaintNavButtonSquare";
-  import PaintNavButtonEllipse from "./PaintNavButtonEllipse";
+  import PaintNavColors from "./colors/PaintNavColors";
+  import PaintNavButtonSquare from "./buttons/PaintNavButtonSquare";
+  import PaintNavButtonEllipse from "./buttons/PaintNavButtonEllipse";
+  import PaintNavButtonNewFile from "@/modules/paint/components/nav/buttons/PaintNavButtonNewFile";
+  import PaintNavButtonSave from "@/modules/paint/components/nav/buttons/PaintNavButtonSave";
   export default {
     name: "PaintNav",
-    components: {PaintNavButtonSquare, PaintNavButtonEllipse, PaintNavColors}
+    components: {PaintNavButtonSave, PaintNavButtonNewFile, PaintNavButtonSquare, PaintNavButtonEllipse, PaintNavColors},
+    props: {
+      // store name instance
+      storeName: String
+    }
   }
 </script>
 

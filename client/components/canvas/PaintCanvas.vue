@@ -1,10 +1,12 @@
 <template>
-  <div id="paint-canvas-container" :class="['content', {'mouse-inactive': canvas.mouseInactive}]" />
+  <div
+      :id="`paint-canvas-container-${storeName}`"
+      :class="['content, paint-canvas-container', {'mouse-inactive': canvas.mouseInactive}]"
+  />
 </template>
 
 <script>
   import p5 from 'p5';
-  import {mapGetters} from 'vuex'
 
   export default {
     name: "PaintCanvas",
@@ -27,7 +29,8 @@
       }
     },
     props: {
-      loadTrigger: Boolean
+      loadTrigger: Boolean,
+      storeName: String
     },
     watch: {
       loadTrigger: function(val) {
@@ -35,17 +38,21 @@
       }
     },
     computed: {
-      ...mapGetters({
-        colors: 'paint/colors',
-        tools: 'paint/tools'
-      })
+      colors() {
+        return this.storeName ? this.$store.getters[this.storeName+'/colors'] : undefined
+      },
+      tools() {
+        return this.storeName ? this.$store.getters[this.storeName+'/tools'] : undefined
+      },
     },
     methods: {
       loader() {
         const self = this;
+
         if (this.canvas.loaded) return;
 
         this.config = (p) => {
+
           p.setup = () => {
             this.canvas.loaded = true;
 
@@ -53,17 +60,17 @@
 
             p.frameRate = this.canvas.frameRate;
 
-            canvasP5.parent("paint-canvas-container");
-            canvasP5.id("paint-canvas");
+            canvasP5.parent(`paint-canvas-container-${this.storeName}`);
+            canvasP5.id(`paint-canvas-${this.storeName}`);
 
             canvasP5.mouseClicked(() => {
-              self.$store.dispatch('paint/closeColorPickers');
+              self.$store.dispatch(`${this.storeName}/closeColorPickers`);
             });
 
             canvasP5.mousePressed(() => {
               self.canvas.focus = true;
 
-              self.$store.dispatch('paint/closeToolPanel');
+              self.$store.dispatch(`${this.storeName}/closeToolPanel`);
             });
 
             canvasP5.mouseReleased(() => {
@@ -71,7 +78,7 @@
             });
 
 
-            self.$store.commit('paint/NEW_FILE')
+            self.$store.commit(`${this.storeName}/NEW_FILE`)
           };
 
           p.draw = () => {
@@ -137,7 +144,7 @@
       },
 
       canvasContainerSize() {
-        const canvasContainer = document.getElementById('paint-canvas-container');
+        const canvasContainer = document.getElementById(`paint-canvas-container-${this.storeName}`);
 
         return {
           width: canvasContainer.offsetWidth,
@@ -150,8 +157,8 @@
         /**
          * New canvas
          */
-        if (mutation.type === 'paint/NEW_FILE') {
-          this.$store.dispatch('paint/closeColorPickers');
+        if (mutation.type === `${this.storeName}/NEW_FILE`) {
+          this.$store.dispatch(`${this.storeName}/closeColorPickers`);
 
           if (this.canvas) {
             const p = this.canvas.instance;
@@ -173,7 +180,7 @@
         /**
          * Save canvas as file
          */
-        if (mutation.type === 'paint/SAVE_FILE') {
+        if (mutation.type === `${this.storeName}/SAVE_FILE`) {
           let anonNumber = parseInt((9999 * Math.floor(Math.random() * 9999) / 9999).toString());
           const anonNumberZerosToAdd = 4 - anonNumber.toString().length;
 

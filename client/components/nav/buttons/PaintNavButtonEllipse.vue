@@ -3,7 +3,7 @@
     <div
       class="button-inner"
       v-ripple="'rgba(255, 255, 255, 0.1)'"
-      @click="$store.dispatch('paint/setCurrentTool', 'ellipse')"
+      @click="$store.dispatch(`${storeName}/setCurrentTool`, 'ellipse')"
     >
       <v-icon>mdi-circle</v-icon>
     </div>
@@ -11,7 +11,7 @@
     <div class="panel" v-show="tools.ellipse.menuActive">
       <input
         v-model="size"
-        @mouseup="$store.dispatch('paint/setCurrentTool', 'ellipse')"
+        @mouseup="$store.dispatch(`${storeName}/setCurrentTool`, 'ellipse')"
         type="range" min="2.5" max="72" step="2.5"
       />
     </div>
@@ -19,8 +19,6 @@
 </template>
 
 <script>
-  import {mapGetters} from "vuex";
-
   export default {
     name: "PaintNavButtonEllipse",
     data() {
@@ -28,17 +26,21 @@
         size: 5
       }
     },
+    props: {
+      // store name instance
+      storeName: String
+    },
     computed: {
-      ...mapGetters({
-        tools: 'paint/tools'
-      })
+      tools() {
+        return this.storeName ? this.$store.getters[this.storeName+'/tools'] : undefined
+      }
     },
     watch: {
       size: function(val) {
         clearTimeout(this.timeoutChange);
 
         this.timeoutChange = setTimeout(() => {
-          this.$store.commit('paint/SET_TOOL', {
+          this.$store.commit(`${this.storeName}/SET_TOOL`, {
             ellipse: {
               size: val,
               menuActive: false

@@ -2,7 +2,7 @@
   <div :class="['button button-square', {active: tools.square.active === 'square'}]">
     <div
       class="button-inner" v-ripple
-      @click="$store.dispatch('paint/setCurrentTool', 'square')"
+      @click="$store.dispatch(`${storeName}/setCurrentTool`, 'square')"
     >
       <v-icon>mdi-square</v-icon>
     </div>
@@ -10,7 +10,7 @@
     <div class="panel" v-show="tools.square.menuActive">
       <input
         v-model="size"
-        @mouseup="$store.dispatch('paint/setCurrentTool', 'square')"
+        @mouseup="$store.dispatch(`${storeName}/setCurrentTool`, 'square')"
         type="range" min="2.5" max="72" step="2.5"
       />
     </div>
@@ -18,8 +18,6 @@
 </template>
 
 <script>
-  import {mapGetters} from "vuex";
-
   export default {
     name: "PaintNavButtonSquare",
     data() {
@@ -27,17 +25,21 @@
         size: 5
       }
     },
+    props: {
+      // store name instance
+      storeName: String
+    },
     computed: {
-      ...mapGetters({
-        tools: 'paint/tools'
-      })
+      tools() {
+        return this.storeName ? this.$store.getters[this.storeName+'/tools'] : undefined
+      }
     },
     watch: {
       size: function(val) {
         clearTimeout(this.timeoutChange);
 
         this.timeoutChange = setTimeout(() => {
-          this.$store.commit('paint/SET_TOOL', {
+          this.$store.commit(`${this.storeName}/SET_TOOL`, {
             square: {
               size: val,
               menuActive: false

@@ -35,7 +35,6 @@
 
 <script>
   import compact from 'vue-color/src/components/Compact.vue'
-  import {mapGetters} from "vuex";
 
   export default {
     name: "PaintNavColors",
@@ -48,11 +47,17 @@
         pickerColor2: [0,0,0],
       }
     },
+    props: {
+      // store name instance
+      storeName: String
+    },
     computed: {
-      ...mapGetters({
-        colors: 'paint/colors',
-        tools: 'paint/tools'
-      }),
+      colors() {
+        return this.storeName ? this.$store.getters[this.storeName+'/colors'] : undefined
+      },
+      tools() {
+        return this.storeName ? this.$store.getters[this.storeName+'/tools'] : undefined
+      },
       rgbColor1() {
         return 'rgb(' + this.colors.color1.value.join(',') + ')';
       },
@@ -62,47 +67,47 @@
     },
     methods: {
       togglePickerColor1() {
-        this.$store.dispatch('paint/closeToolPanel');
-        this.$store.commit('paint/SET_COLOR_1', { picker: !this.colors.color1.picker });
-        this.$store.commit('paint/SET_COLOR_2', { picker: false });
+        this.$store.dispatch(`${this.storeName}/closeToolPanel`);
+        this.$store.commit(`${this.storeName}/SET_COLOR_1`, { picker: !this.colors.color1.picker });
+        this.$store.commit(`${this.storeName}/SET_COLOR_2`, { picker: false });
       },
       togglePickerColor2() {
-        this.$store.dispatch('paint/closeToolPanel');
-        this.$store.commit('paint/SET_COLOR_2', { picker: !this.colors.color2.picker });
-        this.$store.commit('paint/SET_COLOR_1', { picker: false });
+        this.$store.dispatch(`${this.storeName}/closeToolPanel`);
+        this.$store.commit(`${this.storeName}/SET_COLOR_2`, { picker: !this.colors.color2.picker });
+        this.$store.commit(`${this.storeName}/SET_COLOR_1`, { picker: false });
       },
       updateColor1(color) {
-        this.$store.dispatch('paint/closeToolPanel');
+        this.$store.dispatch(`${this.storeName}/closeToolPanel`);
 
-        this.$store.commit('paint/SET_COLOR_1', {
+        this.$store.commit(`${this.storeName}/SET_COLOR_1`, {
           value: [color.rgba.r, color.rgba.g, color.rgba.b]
         });
       },
       updateColor2(color) {
-        this.$store.dispatch('paint/closeToolPanel');
+        this.$store.dispatch(`${this.storeName}/closeToolPanel`);
 
-        this.$store.commit('paint/SET_COLOR_2', {
+        this.$store.commit(`${this.storeName}/SET_COLOR_2`, {
           value: [color.rgba.r, color.rgba.g, color.rgba.b]
         });
       },
       colorInvert() {
-        this.$store.dispatch('paint/closeToolPanel');
-        this.$store.dispatch('paint/closeColorPickers');
+        this.$store.dispatch(`${this.storeName}/closeToolPanel`);
+        this.$store.dispatch(`${this.storeName}/closeColorPickers`);
 
         const color1 = this.colors.color1.value;
         const color2 = this.colors.color2.value;
 
-        this.$store.commit('paint/SET_COLOR_1', { value: color2 });
-        this.$store.commit('paint/SET_COLOR_2', { value: color1 });
+        this.$store.commit(`${this.storeName}/SET_COLOR_1`, { value: color2 });
+        this.$store.commit(`${this.storeName}/SET_COLOR_2`, { value: color1 });
       },
       setDefaultColors() {
-        this.$store.dispatch('paint/closeToolPanel');
-        this.$store.dispatch('paint/closeColorPickers');
+        this.$store.dispatch(`${this.storeName}/closeToolPanel`);
+        this.$store.dispatch(`${this.storeName}/closeColorPickers`);
 
-        this.$store.commit('paint/SET_COLOR_1', {
+        this.$store.commit(`${this.storeName}/SET_COLOR_1`, {
           value: [0, 0, 0]
         });
-        this.$store.commit('paint/SET_COLOR_2', {
+        this.$store.commit(`${this.storeName}/SET_COLOR_2`, {
           value: [255, 255, 255]
         });
       }

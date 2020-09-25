@@ -1,20 +1,20 @@
 <template>
   <Window :title="data.title" :window="data">
-    <div class="paint-container">
+    <div :class="`paint-container paint-container-${data.index}`">
       <div>
-        <PaintNav />
+        <PaintNav :store-name="storeName" />
       </div>
       <div>
-        <PaintCanvas :loadTrigger="canvasLoadTrigger" />
+        <PaintCanvas :store-name="storeName" :loadTrigger="canvasLoadTrigger" />
       </div>
     </div>
   </Window>
 </template>
 
 <script>
-  import Window from "../../../core/components/window/Window";
-  import PaintCanvas from "../components/canvas/PaintCanvas";
-  import PaintNav from "../components/nav/PaintNav";
+  import Window from "~/core/components/window/Window";
+  import PaintCanvas from "~/components/canvas/PaintCanvas";
+  import PaintNav from "~/components/nav/PaintNav";
 
   export default {
     name: "WindowPaint",
@@ -25,6 +25,7 @@
     },
     data() {
       return {
+        storeName: `${this.data.module.name}-${this.data.uniqueID}`,
         canvasLoadTrigger: false
       }
     },
@@ -63,7 +64,7 @@
       }
     }
 
-    #paint-canvas-container {
+    .paint-canvas-container {
       position: relative;
       overflow: hidden;
       margin-left: 12px;

@@ -8,7 +8,7 @@
     "url": "https://hacklover.net"
   },
   "commands": true,
-  "store": true,
+  "storeInstance": true,
   "windows": [
     {
       "name": "WindowPaint",
@@ -22,7 +22,7 @@
         "size": "29px"
       },
       "window": {
-        "menu": false,
+        "menu": true,
         "closed": true,
         "minimized": false,
         "resizable": true,
