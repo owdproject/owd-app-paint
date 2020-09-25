@@ -17,8 +17,8 @@
 
 ## Quick install
 - Copy the content of the `client` module folder into `owd-client/src/modules/paint`
+- Install each module dependency manually with `npm install <dependency>`
 - Add the reference of this module into `owd-client/config/modules.json`
-- Install module dependencies manually with `npm install <dependency>`
 
 ## License
 This project is released under the [MIT License](LICENSE).
