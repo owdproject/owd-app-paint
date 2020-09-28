@@ -21,4 +21,4 @@
 - Add the reference of this module into `owd-client/config/modules.json`
 
 ## License
-This project is released under the [MIT License](LICENSE).
+This project is released under the [MIT License](LICENSE)
