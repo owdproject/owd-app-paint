@@ -1,7 +1,7 @@
 <template>
   <div
-      :id="`paint-canvas-container-${storeName}`"
-      :class="['content, paint-canvas-container', {'mouse-inactive': canvas.mouseInactive}]"
+    :id="`paint-canvas-container-${storeName}`"
+    :class="['content, paint-canvas-container', {'mouse-inactive': canvas.mouseInactive}]"
   />
 </template>
 
@@ -77,8 +77,9 @@
               self.canvas.focus = false;
             });
 
-
-            self.$store.commit(`${this.storeName}/NEW_FILE`)
+            this.$nextTick(() => {
+              self.$store.commit(`${this.storeName}/NEW_FILE`)
+            })
           };
 
           p.draw = () => {
@@ -147,8 +148,8 @@
         const canvasContainer = document.getElementById(`paint-canvas-container-${this.storeName}`);
 
         return {
-          width: canvasContainer.offsetWidth,
-          height: canvasContainer.offsetHeight
+          width: canvasContainer.offsetWidth | 0,
+          height: canvasContainer.offsetHeight | 0
         }
       }
     },
@@ -162,6 +163,8 @@
 
           if (this.canvas) {
             const p = this.canvas.instance;
+
+            if (!p) return
 
             this.canvas.cleanup.active = true;
             this.canvas.mouseInactive = true;

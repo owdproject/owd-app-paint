@@ -13,8 +13,8 @@
 
 <script>
   import Window from "~/core/components/window/Window";
-  import PaintCanvas from "~/components/canvas/PaintCanvas";
-  import PaintNav from "~/components/nav/PaintNav";
+  import PaintCanvas from "../components/canvas/PaintCanvas";
+  import PaintNav from "../components/nav/PaintNav";
 
   export default {
     name: "WindowPaint",

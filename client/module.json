@@ -1,14 +1,9 @@
 {
   "name": "paint",
   "version": "1.0.0",
-  "license": "MIT",
-  "homepage": "https://github.com/hacklover/owd-paint",
-  "author": {
-    "name": "hacklover",
-    "url": "https://hacklover.net"
-  },
+  "autostart": true,
+  "singleton": false,
   "commands": true,
-  "storeInstance": true,
   "windows": [
     {
       "name": "WindowPaint",
@@ -35,6 +30,12 @@
       }
     }
   ],
+  "license": "MIT",
+  "homepage": "https://github.com/hacklover/owd-iframe",
+  "author": {
+    "name": "hacklover",
+    "url": "https://hacklover.net"
+  },
   "dependencies": {
     "p5": "^0.10.2",
     "vue-color": "^2.7.0"
