@@ -12,7 +12,7 @@
 </template>
 
 <script>
-  import Window from "~/core/components/window/Window";
+  import Window from "@owd-client/core/src/components/window/Window";
   import PaintCanvas from "../components/canvas/PaintCanvas";
   import PaintNav from "../components/nav/PaintNav";
 
