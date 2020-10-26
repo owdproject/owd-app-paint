@@ -25,7 +25,7 @@
     },
     data() {
       return {
-        storeName: `${this.data.module.name}-${this.data.uniqueID}`,
+        storeName: `${this.data.module.moduleInfo.name}-${this.data.uniqueID}`,
         canvasLoadTrigger: false
       }
     },
@@ -45,7 +45,7 @@
 </script>
 
 <style lang="scss">
-  #window-paint {
+  .window-paint {
     user-select: none;
     height: 100%;
 

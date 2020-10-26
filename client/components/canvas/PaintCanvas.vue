@@ -54,7 +54,7 @@
         this.config = (p) => {
 
           p.setup = () => {
-            this.canvas.loaded = true;
+            self.canvas.loaded = true;
 
             const canvasP5 = p.createCanvas(this.canvas.size.width, this.canvas.size.height);
 

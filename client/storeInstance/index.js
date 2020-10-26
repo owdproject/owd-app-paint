@@ -1,4 +1,4 @@
-export default () => {
+export default ({ store, terminal }) => {
  return {
    state: {
      colors: {
@@ -87,6 +87,7 @@ export default () => {
 
    actions: {
      setCurrentTool({state, commit, dispatch}, tool) {
+       console.log('setCurrentTool')
        dispatch('closeColorPickers');
 
        if (state.tools.active !== tool) {

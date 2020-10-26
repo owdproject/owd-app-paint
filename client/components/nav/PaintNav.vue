@@ -20,8 +20,8 @@
   import PaintNavColors from "./colors/PaintNavColors";
   import PaintNavButtonSquare from "./buttons/PaintNavButtonSquare";
   import PaintNavButtonEllipse from "./buttons/PaintNavButtonEllipse";
-  import PaintNavButtonNewFile from "@/modules/paint/components/nav/buttons/PaintNavButtonNewFile";
-  import PaintNavButtonSave from "@/modules/paint/components/nav/buttons/PaintNavButtonSave";
+  import PaintNavButtonNewFile from "./buttons/PaintNavButtonNewFile";
+  import PaintNavButtonSave from "./buttons/PaintNavButtonSave";
   export default {
     name: "PaintNav",
     components: {PaintNavButtonSave, PaintNavButtonNewFile, PaintNavButtonSquare, PaintNavButtonEllipse, PaintNavColors},
