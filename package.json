@@ -1,6 +1,6 @@
 {
   "name": "owd-paint",
-  "version": "2.0.0",
+  "version": "2.0.1",
   "dependencies": {
     "p5": "^0.10.2",
     "vue-color": "^2.7.0"
