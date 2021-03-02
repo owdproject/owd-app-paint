@@ -10,7 +10,7 @@
 </p>
 
 ## Demo
-[Try it out](https://hacklover.net), just open the terminal and type "paint"
+[Try it out](https://hacklover.net/client), just open the terminal and type "paint"
 
 ## Features
 - Draw on canvas with p5.js
@@ -19,6 +19,10 @@
 - Copy the content of the `client` module folder into `owd-client/src/modules/paint`
 - Install each module dependency manually with `npm install <dependency>`
 - Add the reference of this module into `owd-client/config/modules.json`
+
+## Dependencies
+- p5
+- vue-color@2.7.0
 
 ## License
 This project is released under the [MIT License](LICENSE)
