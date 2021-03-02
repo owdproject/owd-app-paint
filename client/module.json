@@ -1,6 +1,12 @@
 {
   "name": "paint",
   "version": "2.0.1",
+  "license": "MIT",
+  "homepage": "https://github.com/hacklover/owd-paint",
+  "author": {
+    "name": "hacklover",
+    "url": "https://github.com/hacklover"
+  },
   "autostart": true,
   "singleton": false,
   "windows": [
@@ -28,5 +34,9 @@
         "z": 0
       }
     }
-  ]
+  ],
+  "dependencies": {
+    "p5": "^0.10.2",
+    "vue-color": "^2.7.0"
+  }
 }
