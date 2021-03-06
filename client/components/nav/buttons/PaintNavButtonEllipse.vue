@@ -20,7 +20,6 @@
 
 <script>
   export default {
-    name: "PaintNavButtonEllipse",
     data() {
       return  {
         size: 5
@@ -54,3 +53,10 @@
     }
   }
 </script>
+
+<style scoped lang="scss">
+i {
+  position: relative;
+  top: -1px;
+}
+</style>

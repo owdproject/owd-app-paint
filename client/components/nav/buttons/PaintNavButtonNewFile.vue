@@ -12,7 +12,6 @@
 
 <script>
   export default {
-    name: "PaintNavButtonNewFile",
     props: {
       storeName: String
     }

@@ -23,7 +23,6 @@
   import PaintNavButtonNewFile from "./buttons/PaintNavButtonNewFile";
   import PaintNavButtonSave from "./buttons/PaintNavButtonSave";
   export default {
-    name: "PaintNav",
     components: {PaintNavButtonSave, PaintNavButtonNewFile, PaintNavButtonSquare, PaintNavButtonEllipse, PaintNavColors},
     props: {
       // store name instance
@@ -49,22 +48,23 @@
         line-height: 27px;
         margin: 0 0 4px 0;
         border-radius: 3px;
-        background: #1f1f1f;
+        background: $windowContentButtonBackground;
+        color: $windowContentButtonColor;
 
         &:nth-child(odd) {
           margin-right: 4px;
         }
 
         &.active {
-          background: #252525;
-          color: white;
+          background: $windowContentButtonActiveBackground;
+          color: $windowContentButtonActiveColor;
         }
 
         .panel {
           z-index: 1;
           position: absolute;
-          top: 0;
-          left: 35px;
+          top: -1px;
+          left: 31px;
           width: 110px;
           border-radius: 2px;
           box-shadow: 0 2px 10px rgba(0,0,0,.12), 0 2px 5px rgba(0,0,0,.16);
@@ -101,7 +101,7 @@
         .v-icon {
           font-size: 16px;
           vertical-align: -2px;
-          color: #CCC;
+          color: $windowContentButtonColor;
 
           &.mdi-format-color-fill {
             font-size: 18px;

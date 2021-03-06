@@ -1,11 +1,13 @@
 <template>
-  <Window :title="data.title" :window="data">
-    <div :class="`paint-container paint-container-${data.index}`">
+  <Window :window="window">
+    <div :class="`paint-container paint-container-${window.uniqueName}`">
       <div>
-        <PaintNav :store-name="storeName" />
+        <PaintNav
+          :storeName="window.uniqueName"
+        />
       </div>
       <div>
-        <PaintCanvas :store-name="storeName" :loadTrigger="canvasLoadTrigger" />
+        <PaintCanvas :storeName="window.uniqueName" />
       </div>
     </div>
   </Window>
@@ -17,7 +19,6 @@
   import PaintNav from "../components/nav/PaintNav";
 
   export default {
-    name: "WindowPaint",
     components: {
       PaintNav,
       PaintCanvas,
@@ -25,27 +26,26 @@
     },
     data() {
       return {
-        storeName: `${this.data.module.moduleInfo.name}-${this.data.uniqueID}`,
         canvasLoadTrigger: false
       }
     },
     props: {
-      data: Object
+      window: Object
     },
     watch: {
       // when window opens or closes
-      'data.storage.closed': function (val) {
-        if (val === false) this.canvasLoadTrigger = true;
+      'window.storage.opened': function (val) {
+        if (val) this.canvasLoadTrigger = true;
       }
     },
     mounted() {
-      if (!this.data.storage.closed) this.canvasLoadTrigger = true;
+      if (!this.window.storage.closed) this.canvasLoadTrigger = true;
     }
   }
 </script>
 
 <style lang="scss">
-  .window-paint {
+  .owd-window-paint {
     user-select: none;
     height: 100%;
 
@@ -56,7 +56,7 @@
 
     .paint-container {
       display: grid;
-      grid-template-columns: 56px calc(100% - 56px);
+      grid-template-columns: 58px calc(100% - 58px);
       height: 100%;
 
       > div {

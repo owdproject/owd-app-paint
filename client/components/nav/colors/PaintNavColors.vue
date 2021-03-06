@@ -37,7 +37,6 @@
   import compact from 'vue-color/src/components/Compact.vue'
 
   export default {
-    name: "PaintNavColors",
     components: {
       ColorPicker: compact
     },
@@ -203,14 +202,14 @@
 
         &.mdi-subdirectory-arrow-left {
           font-size: 16px;
-          top: 0;
-          right: -3px;
+          top: -1;
+          right: -4px;
           transform: rotateZ(-90deg);
         }
 
         &.mdi-subdirectory-arrow-right {
           font-size: 16px;
-          top: -2px;
+          top: -5px;
           right: -1px;
           transform: rotateZ(180deg);
         }

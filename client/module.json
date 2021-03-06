@@ -1,34 +1,34 @@
 {
   "name": "paint",
-  "version": "2.0.1",
+  "version": "2.0.0-alpha.2",
   "license": "MIT",
   "homepage": "https://github.com/hacklover/owd-paint",
   "author": {
     "name": "hacklover",
     "url": "https://github.com/hacklover"
   },
-  "autostart": true,
   "singleton": false,
   "windows": [
     {
       "name": "WindowPaint",
+      "category": "accessories",
       "title": "Paint",
       "icon": {
         "name": "mdi-format-color-fill",
         "offset": {
           "x": 1,
-          "y": 5
+          "y": 2
         },
         "size": "29px"
       },
-      "window": {
-        "menu": true,
-        "closed": true,
-        "minimized": false,
-        "resizable": true,
-        "maximizable": true,
+      "minimized": false,
+      "resizable": true,
+      "maximizable": true,
+      "size": {
         "width": 480,
-        "height": 320,
+        "height": 320
+      },
+      "position": {
         "x": 0,
         "y": 0,
         "z": 0

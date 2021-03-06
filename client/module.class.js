@@ -1,7 +1,7 @@
-import {Module} from '@owd-client/core'
+import {ModuleApp} from '@owd-client/core'
 import paintStoreInstance from './storeInstance/index';
 
-export default class PaintModule extends Module {
+export default class PaintModule extends ModuleApp {
   constructor(context) {
     super(context)
   }
@@ -13,10 +13,8 @@ export default class PaintModule extends Module {
   loadCommands({store}) {
     return {
       'paint': function () {
-        store.dispatch('core/windows/windowCreate', {
-          name: 'WindowPaint'
-        });
-      },
+        store.dispatch('core/window/windowCreate', 'WindowPaint');
+      }
     }
   }
 }

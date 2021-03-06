@@ -9,33 +9,19 @@
   import p5 from 'p5';
 
   export default {
-    name: "PaintCanvas",
     data() {
       return {
         canvas: {
           instance: null,
           loaded: false,
           focus: false,
-          frameRate: 50,
-          size: {
-            width: screen.width,
-            height: screen.height,
-          },
-          mouseInactive: false,
-          cleanup: {
-            active: false
-          },
+          frameRate: 60,
+          mouseInactive: false
         },
       }
     },
     props: {
-      loadTrigger: Boolean,
       storeName: String
-    },
-    watch: {
-      loadTrigger: function(val) {
-        if (val === true) this.loader();
-      }
     },
     computed: {
       colors() {
@@ -44,6 +30,14 @@
       tools() {
         return this.storeName ? this.$store.getters[this.storeName+'/tools'] : undefined
       },
+      canvasContainerSize() {
+        const canvasContainer = document.getElementById(`paint-canvas-container-${this.storeName}`);
+
+        return {
+          width: canvasContainer.offsetWidth | 0,
+          height: canvasContainer.offsetHeight | 0
+        }
+      }
     },
     methods: {
       loader() {
@@ -56,7 +50,7 @@
           p.setup = () => {
             self.canvas.loaded = true;
 
-            const canvasP5 = p.createCanvas(this.canvas.size.width, this.canvas.size.height);
+            const canvasP5 = p.createCanvas(this.canvasContainerSize.width, this.canvasContainerSize.height);
 
             p.frameRate = this.canvas.frameRate;
 
@@ -76,18 +70,9 @@
             canvasP5.mouseReleased(() => {
               self.canvas.focus = false;
             });
-
-            this.$nextTick(() => {
-              self.$store.commit(`${this.storeName}/NEW_FILE`)
-            })
           };
 
           p.draw = () => {
-            if (this.canvas.cleanup.active) {
-              // clear draw when cleanup is active
-              return self.fadeNewFile(p);
-            }
-
             if (!this.canvas.focus) return;
 
             if (p.mouseIsPressed && p.mouseButton === p.LEFT) {
@@ -122,38 +107,17 @@
           };
         };
 
-        this.fadeNewFile = (p) => {
-          const canvasContainerSize = this.canvasContainerSize();
-
-          let squareSize = canvasContainerSize.width / 10;
-
-          for (let x = 0; x < canvasContainerSize.width; x += squareSize) {
-            for (let y = 0; y < canvasContainerSize.height; y += squareSize) {
-              p.fill(this.colors.color2.value[0], this.colors.color2.value[1], this.colors.color2.value[2], 40 * p.noise(1 * (10 * p.frameCount + x), 0.01 * y) + 15);
-
-              p.noStroke();
-              p.rect(x, y, squareSize, squareSize);
-            }
-          }
-        };
-
         this.initialize = () => {
           this.canvas.instance = new p5(this.config);
         };
 
         this.initialize();
-      },
-
-      canvasContainerSize() {
-        const canvasContainer = document.getElementById(`paint-canvas-container-${this.storeName}`);
-
-        return {
-          width: canvasContainer.offsetWidth | 0,
-          height: canvasContainer.offsetHeight | 0
-        }
       }
     },
     mounted() {
+      // todo fix this
+      setTimeout(() => this.loader(), 200)
+
       this.$store.subscribe((mutation) => {
         /**
          * New canvas
@@ -166,17 +130,8 @@
 
             if (!p) return
 
-            this.canvas.cleanup.active = true;
-            this.canvas.mouseInactive = true;
-
-            setTimeout(() => {
-              this.canvas.cleanup.active = false;
-              this.canvas.mouseInactive = false;
-
-              p.fill(this.colors.color2.value);
-              p.rect(0, 0, screen.width, screen.height);
-            }, 1000);
-
+            p.fill(this.colors.color2.value);
+            p.rect(-10, -10, this.canvasContainerSize.width + 20, this.canvasContainerSize.height + 20);
           }
         }
 
