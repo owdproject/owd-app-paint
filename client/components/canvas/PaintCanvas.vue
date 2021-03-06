@@ -70,6 +70,9 @@
             canvasP5.mouseReleased(() => {
               self.canvas.focus = false;
             });
+
+            p.fill(this.colors.color2.value);
+            p.rect(-10, -10, this.canvasContainerSize.width + 20, this.canvasContainerSize.height + 20);
           };
 
           p.draw = () => {
@@ -116,7 +119,7 @@
     },
     mounted() {
       // todo fix this
-      setTimeout(() => this.loader(), 200)
+      setTimeout(() => this.loader(), 100)
 
       this.$store.subscribe((mutation) => {
         /**
