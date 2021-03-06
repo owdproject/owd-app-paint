@@ -202,7 +202,7 @@
 
         &.mdi-subdirectory-arrow-left {
           font-size: 16px;
-          top: -1;
+          top: -1px;
           right: -4px;
           transform: rotateZ(-90deg);
         }
