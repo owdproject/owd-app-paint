@@ -2,9 +2,7 @@
   <Window :window="window">
     <div :class="`paint-container paint-container-${window.uniqueName}`">
       <div>
-        <PaintNav
-          :storeName="window.uniqueName"
-        />
+        <PaintNav :storeName="window.uniqueName" />
       </div>
       <div>
         <PaintCanvas :storeName="window.uniqueName" />
