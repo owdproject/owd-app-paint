@@ -8,7 +8,7 @@
     "url": "https://github.com/hacklover"
   },
   "dependencies": {
-    "p5": "^0.10.2",
-    "vue-color": "^2.7.0"
+    "p5": "^1.2.0",
+    "vue-color": "https://github.com/hacklover/vue-color"
   }
 }
