@@ -2,6 +2,7 @@
   <div
     :id="`paint-canvas-container-${storeName}`"
     :class="['content, paint-canvas-container', {'mouse-inactive': canvas.mouseInactive}]"
+    v-click-outside="canvas.focus = false"
   />
 </template>
 
@@ -21,7 +22,7 @@
       }
     },
     props: {
-      storeName: String
+      storeName: String,
     },
     computed: {
       colors() {
@@ -29,7 +30,12 @@
       },
       tools() {
         return this.storeName ? this.$store.getters[this.storeName+'/tools'] : undefined
-      },
+      }
+    },
+    methods: {
+      /**
+       * Get current container canvas size
+       */
       canvasContainerSize() {
         const canvasContainer = document.getElementById(`paint-canvas-container-${this.storeName}`);
 
@@ -37,89 +43,92 @@
           width: canvasContainer.offsetWidth | 0,
           height: canvasContainer.offsetHeight | 0
         }
-      }
-    },
-    methods: {
-      loader() {
+      },
+      /**
+       * Initialize p5.js canvas
+       */
+      canvasInitialize(p5) {
         const self = this;
 
-        if (this.canvas.loaded) return;
+        p5.setup = () => {
+          self.canvas.loaded = true;
 
-        this.config = (p) => {
+          const canvasContainerSize = self.canvasContainerSize()
+          const canvas = p5.createCanvas(canvasContainerSize.width, canvasContainerSize.height);
 
-          p.setup = () => {
-            self.canvas.loaded = true;
+          p5.frameRate = this.canvas.frameRate;
 
-            const canvasP5 = p.createCanvas(this.canvasContainerSize.width, this.canvasContainerSize.height);
+          canvas.parent(`paint-canvas-container-${this.storeName}`);
+          canvas.id(`paint-canvas-${this.storeName}`);
 
-            p.frameRate = this.canvas.frameRate;
+          canvas.mouseClicked(() => {
+            self.$store.dispatch(`${this.storeName}/closeColorPickers`);
+          });
 
-            canvasP5.parent(`paint-canvas-container-${this.storeName}`);
-            canvasP5.id(`paint-canvas-${this.storeName}`);
+          canvas.mousePressed(() => {
+            self.canvas.focus = true;
 
-            canvasP5.mouseClicked(() => {
-              self.$store.dispatch(`${this.storeName}/closeColorPickers`);
-            });
+            self.$store.dispatch(`${this.storeName}/closeToolPanel`);
+          });
 
-            canvasP5.mousePressed(() => {
-              self.canvas.focus = true;
+          canvas.mouseReleased(() => {
+            self.canvas.focus = false;
+          });
 
-              self.$store.dispatch(`${this.storeName}/closeToolPanel`);
-            });
+          self.canvasClear(p5)
+        };
 
-            canvasP5.mouseReleased(() => {
-              self.canvas.focus = false;
-            });
+        p5.draw = () => {
+          if (!this.canvas.focus) return;
 
-            p.fill(this.colors.color2.value);
-            p.rect(-10, -10, this.canvasContainerSize.width + 20, this.canvasContainerSize.height + 20);
-          };
-
-          p.draw = () => {
-            if (!this.canvas.focus) return;
-
-            if (p.mouseIsPressed && p.mouseButton === p.LEFT) {
-              if (self.tools.active === 'square') {
-                p.noStroke();
-                p.fill(self.colors.color1.value);
-                p.rect(
-                  p.mouseX - (self.tools.square.size/2),
-                  p.mouseY - (self.tools.square.size/2),
+          if (p5.mouseIsPressed && p5.mouseButton === p5.LEFT) {
+            if (self.tools.active === 'square') {
+              p5.noStroke();
+              p5.fill(self.colors.color1.value);
+              p5.rect(
+                  p5.mouseX - (self.tools.square.size/2),
+                  p5.mouseY - (self.tools.square.size/2),
                   self.tools.square.size,
                   self.tools.square.size
-                )
-              }
-
-              if (self.tools.active === 'ellipse') {
-                p.stroke(self.colors.color1.value);
-                p.strokeWeight(self.tools.ellipse.size);
-                p.line(
-                  p.mouseX,
-                  p.mouseY,
-                  p.pmouseX,
-                  p.pmouseY
-                )
-              }
-
-              if (self.tools.active === 'marker') {
-                p.noStroke();
-                p.stroke(self.colors.color1.value);
-                p.line(p.mouseX - 4, p.mouseY - 5, p.mouseX + 4, p.mouseY + 6)
-              }
+              )
             }
-          };
-        };
 
-        this.initialize = () => {
-          this.canvas.instance = new p5(this.config);
-        };
+            if (self.tools.active === 'ellipse') {
+              p5.stroke(self.colors.color1.value);
+              p5.strokeWeight(self.tools.ellipse.size);
+              p5.line(
+                  p5.mouseX,
+                  p5.mouseY,
+                  p5.pmouseX,
+                  p5.pmouseY
+              )
+            }
 
-        this.initialize();
+            if (self.tools.active === 'marker') {
+              p5.noStroke();
+              p5.stroke(self.colors.color1.value);
+              p5.line(p5.mouseX - 4, p5.mouseY - 5, p5.mouseX + 4, p5.mouseY + 6)
+            }
+          }
+        };
+      },
+      /**
+       * Clear canvas
+       */
+      canvasClear(p5) {
+        const canvasContainerSize = this.canvasContainerSize()
+        p5.resizeCanvas(canvasContainerSize.width, canvasContainerSize.height)
+
+        p5.clear()
+        p5.fill(this.colors.color2.value);
+        p5.rect(-10, -10, canvasContainerSize.width + 20, canvasContainerSize.height + 20);
       }
     },
     mounted() {
-      // todo fix this
-      setTimeout(() => this.loader(), 100)
+      const self = this;
+
+      // initialize p5.js canvas
+      this.canvas.instance = new p5(this.canvasInitialize);
 
       this.$store.subscribe((mutation) => {
         /**
@@ -129,12 +138,7 @@
           this.$store.dispatch(`${this.storeName}/closeColorPickers`);
 
           if (this.canvas) {
-            const p = this.canvas.instance;
-
-            if (!p) return
-
-            p.fill(this.colors.color2.value);
-            p.rect(-10, -10, this.canvasContainerSize.width + 20, this.canvasContainerSize.height + 20);
+            self.canvasClear(this.canvas.instance)
           }
         }
 
