@@ -3,22 +3,30 @@
     <!-- color 1 -->
     <div
       :class="['color color-1', {active: colors.color1.picker}]"
-      @click="togglePickerColor1"
+      v-click-outside="closePickerColor1"
     >
-      <div class="color-preview" :style="`background-color: ${rgbColor1}`" />
+      <div
+        class="color-preview"
+        :style="`background-color: ${rgbColor1}`"
+        @click="togglePickerColor1"
+      />
       <div class="color-picker">
-        <ColorPicker :value="pickerColor1" @input="updateColor1" />
+        <ColorPicker disable-alpha :preset-colors="[]" :value="pickerColor1" @input="updateColor1" />
       </div>
     </div>
 
     <!-- color 2 -->
     <div
       :class="['color color-2', {active: colors.color2.picker}]"
-      @click="togglePickerColor2"
+      v-click-outside="closePickerColor2"
     >
-      <div class="color-preview" :style="`background-color: ${rgbColor2}`" />
+      <div
+        class="color-preview"
+        :style="`background-color: ${rgbColor2}`"
+        @click="togglePickerColor2"
+      />
       <div class="color-picker">
-        <ColorPicker :value="pickerColor2" @input="updateColor2" />
+        <ColorPicker disable-alpha :preset-colors="[]" :value="pickerColor2" @input="updateColor2" />
       </div>
     </div>
 
@@ -34,11 +42,11 @@
 </template>
 
 <script>
-  import compact from 'vue-color/src/components/Compact.vue'
+  import ColorPicker from 'vue-color/src/components/Sketch.vue'
 
   export default {
     components: {
-      ColorPicker: compact
+      ColorPicker
     },
     data() {
       return {
@@ -74,6 +82,12 @@
         this.$store.dispatch(`${this.storeName}/closeToolPanel`);
         this.$store.commit(`${this.storeName}/SET_COLOR_2`, { picker: !this.colors.color2.picker });
         this.$store.commit(`${this.storeName}/SET_COLOR_1`, { picker: false });
+      },
+      closePickerColor1() {
+        this.$store.commit(`${this.storeName}/SET_COLOR_1`, { picker: false });
+      },
+      closePickerColor2() {
+        this.$store.commit(`${this.storeName}/SET_COLOR_2`, { picker: false });
       },
       updateColor1(color) {
         this.$store.dispatch(`${this.storeName}/closeToolPanel`);
@@ -114,7 +128,7 @@
   }
 </script>
 
-<style scoped lang="scss">
+<style lang="scss">
   .paint-nav-colors {
     position: absolute;
     bottom: 0;
@@ -142,6 +156,21 @@
         bottom: 0;
         left: 48px;
         z-index: 3;
+        background-color: $windowBackground;
+
+        .vc-sketch-field .vc-input__label {
+          color: $windowContentInputColor;
+        }
+
+        .vc-input__input {
+          background-color: $windowContentInputBackground;
+          box-shadow: 0 0 0 1px $windowContentBorder;
+          color: $windowContentInputColor;
+        }
+
+        .vc-sketch-presets {
+          border-color: $windowContentBorder;
+        }
       }
 
       .color-preview {
@@ -202,15 +231,15 @@
 
         &.mdi-subdirectory-arrow-left {
           font-size: 16px;
-          top: -1px;
-          right: -4px;
+          top: -3px;
+          right: -7px;
           transform: rotateZ(-90deg);
         }
 
         &.mdi-subdirectory-arrow-right {
           font-size: 16px;
-          top: -5px;
-          right: -1px;
+          top: -7px;
+          right: -3px;
           transform: rotateZ(180deg);
         }
       }

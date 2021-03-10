@@ -68,7 +68,7 @@
           width: 110px;
           border-radius: 2px;
           box-shadow: 0 2px 10px rgba(0,0,0,.12), 0 2px 5px rgba(0,0,0,.16);
-          background-color: #fff;
+          background-color: $windowBackground;
 
           input[type="range"] {
             max-width: 80px;
@@ -79,7 +79,7 @@
               width: 100%;
               height: 3px;
               cursor: pointer;
-              background: #CCC;
+              background: $windowContentInputBackground;
               border-radius: 2px;
             }
 
@@ -87,7 +87,7 @@
               width: 12px;
               height: 12px;
               border-radius: 16px;
-              background: #333;
+              background: $windowContentBorder;
               cursor: pointer;
               margin-top: -4.5px;
             }

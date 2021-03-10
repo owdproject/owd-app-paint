@@ -7,7 +7,7 @@ export default ({ store, terminal }) => {
          picker: false
        },
        color2: {
-         value: [255,255,255],
+         value: [45,45,45],
          picker: false
        },
      },
@@ -87,7 +87,6 @@ export default ({ store, terminal }) => {
 
    actions: {
      setCurrentTool({state, commit, dispatch}, tool) {
-       console.log('setCurrentTool')
        dispatch('closeColorPickers');
 
        if (state.tools.active !== tool) {
