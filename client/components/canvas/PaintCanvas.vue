@@ -1,7 +1,7 @@
 <template>
   <div
     :id="`paint-canvas-container-${storeName}`"
-    :class="['content, paint-canvas-container', {'mouse-inactive': canvas.mouseInactive}]"
+    :class="['paint-canvas-container', {'mouse-inactive': canvas.mouseInactive}]"
     v-click-outside="canvas.focus = false"
   />
 </template>
@@ -40,8 +40,8 @@
         const canvasContainer = document.getElementById(`paint-canvas-container-${this.storeName}`);
 
         return {
-          width: canvasContainer.offsetWidth | 0,
-          height: canvasContainer.offsetHeight | 0
+          width: canvasContainer.offsetWidth | 382,
+          height: canvasContainer.offsetHeight | 252
         }
       },
       /**
