@@ -1,8 +1,7 @@
 <template>
   <div :class="['button button-ellipse', {active: tools.active === 'ellipse'}]">
     <div
-      class="button-inner"
-      v-ripple="'rgba(255, 255, 255, 0.1)'"
+      class="button-inner" v-ripple
       @click="$store.dispatch(`${storeName}/setCurrentTool`, 'ellipse')"
     >
       <v-icon>mdi-circle</v-icon>
@@ -11,7 +10,7 @@
     <div class="panel" v-show="tools.ellipse.menuActive">
       <input
         v-model="size"
-        @mouseup="$store.dispatch(`${storeName}/setCurrentTool`, 'ellipse')"
+        @mouseup="updateToolSize"
         type="range" min="2.5" max="72" step="2.5"
       />
     </div>
@@ -34,18 +33,16 @@
         return this.storeName ? this.$store.getters[this.storeName+'/tools'] : undefined
       }
     },
-    watch: {
-      size: function(val) {
-        clearTimeout(this.timeoutChange);
+    methods: {
+      updateToolSize() {
+        this.$store.dispatch(`${this.storeName}/setCurrentTool`, 'ellipse')
 
-        this.timeoutChange = setTimeout(() => {
-          this.$store.commit(`${this.storeName}/SET_TOOL`, {
-            ellipse: {
-              size: val,
-              menuActive: false
-            }
-          });
-        }, 250)
+        this.$store.commit(`${this.storeName}/SET_TOOL`, {
+          ellipse: {
+            size: this.size,
+            menuActive: false
+          }
+        });
       }
     },
     mounted() {

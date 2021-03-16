@@ -10,7 +10,7 @@
     <div class="panel" v-show="tools.square.menuActive">
       <input
         v-model="size"
-        @mouseup="$store.dispatch(`${storeName}/setCurrentTool`, 'square')"
+        @mouseup="updateToolSize"
         type="range" min="2.5" max="72" step="2.5"
       />
     </div>
@@ -33,18 +33,16 @@
         return this.storeName ? this.$store.getters[this.storeName+'/tools'] : undefined
       }
     },
-    watch: {
-      size: function(val) {
-        clearTimeout(this.timeoutChange);
+    methods: {
+      updateToolSize() {
+        this.$store.dispatch(`${this.storeName}/setCurrentTool`, 'square')
 
-        this.timeoutChange = setTimeout(() => {
-          this.$store.commit(`${this.storeName}/SET_TOOL`, {
-            square: {
-              size: val,
-              menuActive: false
-            }
-          });
-        }, 250)
+        this.$store.commit(`${this.storeName}/SET_TOOL`, {
+          square: {
+            size: this.size,
+            menuActive: false
+          }
+        });
       }
     },
     mounted() {
