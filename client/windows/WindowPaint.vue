@@ -22,22 +22,8 @@
       PaintCanvas,
       Window
     },
-    data() {
-      return {
-        canvasLoadTrigger: false
-      }
-    },
     props: {
       window: Object
-    },
-    watch: {
-      // when window opens or closes
-      'window.storage.opened': function (val) {
-        if (val) this.canvasLoadTrigger = true;
-      }
-    },
-    mounted() {
-      if (!this.window.storage.closed) this.canvasLoadTrigger = true;
     }
   }
 </script>
