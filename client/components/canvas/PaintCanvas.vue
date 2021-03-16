@@ -161,6 +161,9 @@
           }
         }
       });
+    },
+    beforeUnmount() {
+      this.canvas.instance.remove()
     }
   }
 </script>
