@@ -51,6 +51,11 @@
         background: $windowContentButtonBackground;
         color: $windowContentButtonColor;
 
+        &-inner {
+          border-radius: 3px;
+          overflow: hidden;
+        }
+
         &:nth-child(odd) {
           margin-right: 4px;
         }
@@ -74,6 +79,11 @@
             max-width: 80px;
             vertical-align: 3px;
             -webkit-appearance: none;
+
+            @-moz-document url-prefix() {
+              -webkit-appearance: auto;
+              vertical-align: -4px;
+            }
 
             &::-webkit-slider-runnable-track {
               width: 100%;
@@ -114,7 +124,7 @@
 
           &.mdi-content-save {
             font-size: 16px;
-            vertical-align: -1px;
+            vertical-align: -2px;
           }
 
           &.mdi-pencil {
