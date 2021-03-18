@@ -54,6 +54,6 @@
 <style scoped lang="scss">
 i {
   position: relative;
-  top: -1px;
+  top: -2px;
 }
 </style>

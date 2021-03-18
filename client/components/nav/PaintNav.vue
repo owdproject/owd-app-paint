@@ -108,27 +108,26 @@
           }
         }
 
+
         .v-icon {
           font-size: 16px;
-          vertical-align: -2px;
           color: $windowContentButtonColor;
 
           &.mdi-format-color-fill {
             font-size: 18px;
-            vertical-align: -5px;
-          }
-
-          &.mdi-file {
-            font-size: 16px;
+            vertical-align: -4px;
           }
 
           &.mdi-content-save {
-            font-size: 16px;
-            vertical-align: -2px;
+            font-size: 17px;
           }
 
-          &.mdi-pencil {
-            vertical-align: -2px;
+          &.mdi-square {
+            vertical-align: -1px;
+          }
+
+          &.mdi-file {
+            vertical-align: -1px;
           }
         }
       }
