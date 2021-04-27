@@ -16,8 +16,7 @@
       "icon": {
         "name": "mdi-format-color-fill",
         "offset": {
-          "x": 1,
-          "y": 1
+          "y": 3
         },
         "size": "29px"
       },
