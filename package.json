@@ -1,13 +1,13 @@
 {
-  name: "owd-paint",
-  version: "2.0.0-alpha",
-  license: "MIT",
-  homepage: "https://github.com/hacklover/owd-paint",
-  author: {
-    name: "hacklover",
-    url: "https://github.com/hacklover"
+  "name": "owd-paint",
+  "version": "2.0.0-alpha",
+  "license": "MIT",
+  "homepage": "https://github.com/hacklover/owd-paint",
+  "author": {
+    "name": "hacklover",
+    "url": "https://github.com/hacklover"
   },
-  dependencies: {
+  "dependencies": {
     "p5": "^1.3.0",
     "vue-color": "https://github.com/hacklover/vue-color"
   }
