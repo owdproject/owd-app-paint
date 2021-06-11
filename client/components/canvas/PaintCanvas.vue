@@ -41,7 +41,7 @@
 
         return {
           width: canvasContainer.offsetWidth | 382,
-          height: canvasContainer.offsetHeight | 252
+          height: canvasContainer.offsetHeight | 258
         }
       },
       /**

@@ -1,10 +1,15 @@
 <template>
-  <div :class="['button button-square', {active: tools.square.active === 'square'}]">
+  <v-btn
+    tile
+    :min-width="28"
+    :height="28"
+    class="pa-0 mr-1 mb-1"
+  >
     <div
       class="button-inner" v-ripple
       @click="$store.dispatch(`${storeName}/setCurrentTool`, 'square')"
     >
-      <v-icon>mdi-square</v-icon>
+      <v-icon size="16" style="vertical-align: -1px">mdi-square</v-icon>
     </div>
 
     <div class="panel" v-show="tools.square.menuActive">
@@ -14,7 +19,7 @@
         type="range" min="2.5" max="72" step="2.5"
       />
     </div>
-  </div>
+  </v-btn>
 </template>
 
 <script>

@@ -1,31 +1,25 @@
 <template>
-  <Window :window="window">
-    <div :class="`paint-container paint-container-${window.uniqueName}`">
+  <Window :window="props.window">
+    <div :class="`paint-container paint-container-${props.window.uniqueName}`">
       <div>
-        <PaintNav :storeName="window.uniqueName" />
+        <PaintNav :storeName="props.window.uniqueName" />
       </div>
       <div>
-        <PaintCanvas :storeName="window.uniqueName" />
+        <PaintCanvas :storeName="props.window.uniqueName" />
       </div>
     </div>
   </Window>
 </template>
 
-<script>
-  import Window from "@owd-client/core/src/components/window/Window";
-  import PaintCanvas from "../components/canvas/PaintCanvas";
-  import PaintNav from "../components/nav/PaintNav";
+<script setup>
+  import Window from "@owd-client/core/src/components/window/app/WindowApp.vue";
+  import PaintCanvas from "../components/canvas/PaintCanvas.vue";
+  import PaintNav from "../components/nav/PaintNav.vue";
+  import {defineProps} from "vue";
 
-  export default {
-    components: {
-      PaintNav,
-      PaintCanvas,
-      Window
-    },
-    props: {
-      window: Object
-    }
-  }
+  const props = defineProps({
+    window: Object
+  })
 </script>
 
 <style lang="scss">
@@ -40,7 +34,7 @@
 
     .paint-container {
       display: grid;
-      grid-template-columns: 58px calc(100% - 58px);
+      grid-template-columns: 60px calc(100% - 60px);
       height: 100%;
 
       > div {

@@ -1,20 +1,21 @@
 <template>
-  <div :class="['button button-ellipse', {active: tools.active === 'ellipse'}]">
-    <div
-      class="button-inner" v-ripple
-      @click="$store.dispatch(`${storeName}/setCurrentTool`, 'ellipse')"
-    >
-      <v-icon>mdi-circle</v-icon>
-    </div>
+  <v-btn
+    tile
+    :min-width="28"
+    :height="28"
+    class="pa-0 mb-1"
+    @click="$store.dispatch(`${storeName}/setCurrentTool`, 'ellipse')"
+  >
+    <v-icon size="17" style="margin-top: 2px; margin-left: 1px;">mdi-circle</v-icon>
 
     <div class="panel" v-show="tools.ellipse.menuActive">
       <input
-        v-model="size"
-        @mouseup="updateToolSize"
-        type="range" min="2.5" max="72" step="2.5"
+          v-model="size"
+          @mouseup="updateToolSize"
+          type="range" min="2.5" max="72" step="2.5"
       />
     </div>
-  </div>
+  </v-btn>
 </template>
 
 <script>

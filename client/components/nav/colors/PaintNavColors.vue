@@ -156,20 +156,21 @@
         bottom: 0;
         left: 48px;
         z-index: 3;
-        background-color: $windowBackground;
+        background-color: $owd-window-background;
 
         .vc-sketch-field .vc-input__label {
-          color: $windowContentInputColor;
+          color: $owd-window-button-icon-color;
         }
 
         .vc-input__input {
-          background-color: $windowContentInputBackground;
-          box-shadow: 0 0 0 1px $windowContentBorder;
-          color: $windowContentInputColor;
+          background-color: $owd-window-input-background;
+          box-shadow: 0 0 0 1px $owd-window-input-box-shadow;
+          color: $owd-window-input-color;
+          padding: 0;
         }
 
         .vc-sketch-presets {
-          border-color: $windowContentBorder;
+          border-color: $owd-window-input-border-color;
         }
       }
 
@@ -231,8 +232,8 @@
 
         &.mdi-subdirectory-arrow-left {
           font-size: 16px;
-          top: -3px;
-          right: -7px;
+          top: -4px;
+          right: -6px;
           transform: rotateZ(-90deg);
         }
 

@@ -17,11 +17,11 @@
 </template>
 
 <script>
-  import PaintNavColors from "./colors/PaintNavColors";
-  import PaintNavButtonSquare from "./buttons/PaintNavButtonSquare";
-  import PaintNavButtonEllipse from "./buttons/PaintNavButtonEllipse";
-  import PaintNavButtonNewFile from "./buttons/PaintNavButtonNewFile";
-  import PaintNavButtonSave from "./buttons/PaintNavButtonSave";
+  import PaintNavColors from "./colors/PaintNavColors.vue";
+  import PaintNavButtonSquare from "./buttons/PaintNavButtonSquare.vue";
+  import PaintNavButtonEllipse from "./buttons/PaintNavButtonEllipse.vue";
+  import PaintNavButtonNewFile from "./buttons/PaintNavButtonNewFile.vue";
+  import PaintNavButtonSave from "./buttons/PaintNavButtonSave.vue";
   export default {
     components: {PaintNavButtonSave, PaintNavButtonNewFile, PaintNavButtonSquare, PaintNavButtonEllipse, PaintNavColors},
     props: {
@@ -39,95 +39,46 @@
     .paint-nav-buttons {
       cursor: pointer;
 
-      .button {
-        position: relative;
-        float: left;
-        text-align: center;
-        width: 26px;
-        height: 26px;
-        line-height: 27px;
-        margin: 0 0 4px 0;
-        border-radius: 3px;
-        background: $windowContentButtonBackground;
-        color: $windowContentButtonColor;
+      .panel {
+        z-index: 1;
+        position: absolute;
+        top: -1px;
+        left: 31px;
+        width: 110px;
+        height: 28px;
+        border-radius: 2px;
+        box-shadow: 0 2px 10px rgba(0,0,0,.12), 0 2px 5px rgba(0,0,0,.16);
+        background-color: $owd-window-background;
 
-        &-inner {
-          border-radius: 3px;
-          overflow: hidden;
-        }
+        input[type="range"] {
+          max-width: 80px;
+          vertical-align: -2px;
+          -webkit-appearance: none;
 
-        &:nth-child(odd) {
-          margin-right: 4px;
-        }
-
-        &.active {
-          background: $windowContentButtonActiveBackground;
-          color: $windowContentButtonActiveColor;
-        }
-
-        .panel {
-          z-index: 1;
-          position: absolute;
-          top: -1px;
-          left: 31px;
-          width: 110px;
-          border-radius: 2px;
-          box-shadow: 0 2px 10px rgba(0,0,0,.12), 0 2px 5px rgba(0,0,0,.16);
-          background-color: $windowBackground;
-
-          input[type="range"] {
-            max-width: 80px;
-            vertical-align: 3px;
-            -webkit-appearance: none;
-
-            @-moz-document url-prefix() {
-              -webkit-appearance: auto;
-              vertical-align: -4px;
-            }
-
-            &::-webkit-slider-runnable-track {
-              width: 100%;
-              height: 3px;
-              cursor: pointer;
-              background: $windowContentInputBackground;
-              border-radius: 2px;
-            }
-
-            &::-webkit-slider-thumb {
-              width: 12px;
-              height: 12px;
-              border-radius: 16px;
-              background: $windowContentBorder;
-              cursor: pointer;
-              margin-top: -4.5px;
-            }
-
-            &::-webkit-slider-thumb {
-              -webkit-appearance: none;
-            }
-          }
-        }
-
-
-        .v-icon {
-          font-size: 16px;
-          color: $windowContentButtonColor;
-
-          &.mdi-format-color-fill {
-            font-size: 18px;
+          @-moz-document url-prefix() {
+            -webkit-appearance: auto;
             vertical-align: -4px;
           }
 
-          &.mdi-content-save {
-            font-size: 17px;
+          &::-webkit-slider-runnable-track {
+            width: 100%;
+            height: 3px;
+            cursor: pointer;
+            background: lighten($owd-window-input-border-color, 12%);
+            border-radius: 2px;
           }
 
-          &.mdi-square {
-            vertical-align: -1px;
+          &::-webkit-slider-thumb {
+            width: 12px;
+            height: 12px;
+            border-radius: 16px;
+            background: $owd-window-input-border-color;
+            cursor: pointer;
+            margin-top: -4.5px;
           }
 
-          &.mdi-file {
-            vertical-align: -1px;
+          &::-webkit-slider-thumb {
+            -webkit-appearance: none;
           }
         }
       }
