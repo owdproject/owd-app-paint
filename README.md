@@ -26,7 +26,7 @@
 
 ## Dependencies
 - p5
-- vue-color (custom)
+- hacklover/vue-color
 
 ## Compatibility
 - Open Web Desktop client v2.0.0-beta
