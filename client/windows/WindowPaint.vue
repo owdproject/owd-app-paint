@@ -49,10 +49,4 @@
       height: 100%;
     }
   }
-  .vc-compact {
-    width: 245px;
-  }
-  .vc-compact-dot {
-    display: none;
-  }
 </style>

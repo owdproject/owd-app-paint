@@ -3,11 +3,11 @@ export default ({ store, terminal }) => {
    state: {
      colors: {
        color1: {
-         value: [0,0,0],
+         value: '#000000',
          picker: false
        },
        color2: {
-         value: [45,45,45],
+         value: '#454545',
          picker: false
        },
      },
@@ -87,8 +87,6 @@ export default ({ store, terminal }) => {
 
    actions: {
      setCurrentTool({state, commit, dispatch}, tool) {
-       dispatch('closeColorPickers');
-
        if (state.tools.active !== tool) {
          dispatch('closeToolPanel');
 
@@ -121,10 +119,6 @@ export default ({ store, terminal }) => {
        if (state.tools[toolActive].menuActive === true) {
          commit('SET_TOOL', { [toolActive]: { menuActive: false } });
        }
-     },
-     closeColorPickers({state, commit}) {
-       if (state.colors.color1.picker === true) commit('SET_COLOR_1', { picker: false })
-       if (state.colors.color2.picker === true) commit('SET_COLOR_2', { picker: false })
      }
    }
  }

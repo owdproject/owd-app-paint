@@ -4,13 +4,9 @@
     :min-width="28"
     :height="28"
     class="pa-0 mr-1 mb-1"
+    @click="$store.dispatch(`${storeName}/setCurrentTool`, 'square')"
   >
-    <div
-      class="button-inner" v-ripple
-      @click="$store.dispatch(`${storeName}/setCurrentTool`, 'square')"
-    >
-      <v-icon size="16" style="vertical-align: -1px">mdi-square</v-icon>
-    </div>
+    <v-icon size="16" style="vertical-align: -1px">mdi-square</v-icon>
 
     <div class="panel" v-show="tools.square.menuActive">
       <input

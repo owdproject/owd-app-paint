@@ -3,31 +3,23 @@
     <!-- color 1 -->
     <div
       :class="['color color-1', {active: colors.color1.picker}]"
-      v-click-outside="closePickerColor1"
     >
       <div
         class="color-preview"
         :style="`background-color: ${rgbColor1}`"
-        @click="togglePickerColor1"
       />
-      <div class="color-picker">
-        <ColorPicker disable-alpha :preset-colors="[]" :value="pickerColor1" @input="updateColor1" />
-      </div>
+      <input type="color" class="color-picker" ref="colorPicker1" :value="rgbColor1" />
     </div>
 
     <!-- color 2 -->
     <div
       :class="['color color-2', {active: colors.color2.picker}]"
-      v-click-outside="closePickerColor2"
     >
       <div
         class="color-preview"
         :style="`background-color: ${rgbColor2}`"
-        @click="togglePickerColor2"
       />
-      <div class="color-picker">
-        <ColorPicker disable-alpha :preset-colors="[]" :value="pickerColor2" @input="updateColor2" />
-      </div>
+      <input type="color" class="color-picker" ref="colorPicker2" :value="rgbColor2" />
     </div>
 
     <!-- invert color -->
@@ -42,16 +34,11 @@
 </template>
 
 <script>
-  import ColorPicker from 'vue-color/src/components/Sketch.vue'
-
   export default {
-    components: {
-      ColorPicker
-    },
     data() {
       return {
-        pickerColor1: [0,0,0],
-        pickerColor2: [0,0,0],
+        colorPicker1: null,
+        colorPicker2: null
       }
     },
     props: {
@@ -66,47 +53,24 @@
         return this.storeName ? this.$store.getters[this.storeName+'/tools'] : undefined
       },
       rgbColor1() {
-        return 'rgb(' + this.colors.color1.value.join(',') + ')';
+        return this.colors.color1.value;
       },
       rgbColor2() {
-        return 'rgb(' + this.colors.color2.value.join(',') + ')';
+        return this.colors.color2.value;
       }
     },
+    mounted() {
+      const self = this;
+
+      this.$refs.colorPicker1.addEventListener('change', function(color) {
+        self.$store.commit(`${self.storeName}/SET_COLOR_1`, { value: color.target.value });
+      })
+      this.$refs.colorPicker2.addEventListener('change', function(color) {
+        self.$store.commit(`${self.storeName}/SET_COLOR_2`, { value: color.target.value });
+      })
+    },
     methods: {
-      togglePickerColor1() {
-        this.$store.dispatch(`${this.storeName}/closeToolPanel`);
-        this.$store.commit(`${this.storeName}/SET_COLOR_1`, { picker: !this.colors.color1.picker });
-        this.$store.commit(`${this.storeName}/SET_COLOR_2`, { picker: false });
-      },
-      togglePickerColor2() {
-        this.$store.dispatch(`${this.storeName}/closeToolPanel`);
-        this.$store.commit(`${this.storeName}/SET_COLOR_2`, { picker: !this.colors.color2.picker });
-        this.$store.commit(`${this.storeName}/SET_COLOR_1`, { picker: false });
-      },
-      closePickerColor1() {
-        this.$store.commit(`${this.storeName}/SET_COLOR_1`, { picker: false });
-      },
-      closePickerColor2() {
-        this.$store.commit(`${this.storeName}/SET_COLOR_2`, { picker: false });
-      },
-      updateColor1(color) {
-        this.$store.dispatch(`${this.storeName}/closeToolPanel`);
-
-        this.$store.commit(`${this.storeName}/SET_COLOR_1`, {
-          value: [color.rgba.r, color.rgba.g, color.rgba.b]
-        });
-      },
-      updateColor2(color) {
-        this.$store.dispatch(`${this.storeName}/closeToolPanel`);
-
-        this.$store.commit(`${this.storeName}/SET_COLOR_2`, {
-          value: [color.rgba.r, color.rgba.g, color.rgba.b]
-        });
-      },
       colorInvert() {
-        this.$store.dispatch(`${this.storeName}/closeToolPanel`);
-        this.$store.dispatch(`${this.storeName}/closeColorPickers`);
-
         const color1 = this.colors.color1.value;
         const color2 = this.colors.color2.value;
 
@@ -114,14 +78,11 @@
         this.$store.commit(`${this.storeName}/SET_COLOR_2`, { value: color1 });
       },
       setDefaultColors() {
-        this.$store.dispatch(`${this.storeName}/closeToolPanel`);
-        this.$store.dispatch(`${this.storeName}/closeColorPickers`);
-
         this.$store.commit(`${this.storeName}/SET_COLOR_1`, {
-          value: [0, 0, 0]
+          value: '#000000'
         });
         this.$store.commit(`${this.storeName}/SET_COLOR_2`, {
-          value: [255, 255, 255]
+          value: '#FFFFFF'
         });
       }
     }
@@ -151,27 +112,13 @@
       }
 
       .color-picker {
-        display: none;
         position: absolute;
-        bottom: 0;
-        left: 48px;
-        z-index: 3;
-        background-color: $owd-window-background;
-
-        .vc-sketch-field .vc-input__label {
-          color: $owd-window-button-icon-color;
-        }
-
-        .vc-input__input {
-          background-color: $owd-window-input-background;
-          box-shadow: 0 0 0 1px $owd-window-input-box-shadow;
-          color: $owd-window-input-color;
-          padding: 0;
-        }
-
-        .vc-sketch-presets {
-          border-color: $owd-window-input-border-color;
-        }
+        top: 0;
+        left: 0;
+        border: 0;
+        width: 100%;
+        height: 100%;
+        opacity: 0;
       }
 
       .color-preview {

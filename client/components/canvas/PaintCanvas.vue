@@ -61,10 +61,6 @@
           canvas.parent(`paint-canvas-container-${this.storeName}`);
           canvas.id(`paint-canvas-${this.storeName}`);
 
-          canvas.mouseClicked(() => {
-            self.$store.dispatch(`${this.storeName}/closeColorPickers`);
-          });
-
           canvas.mousePressed(() => {
             self.canvas.focus = true;
 
@@ -135,8 +131,6 @@
          * New canvas
          */
         if (mutation.type === `${this.storeName}/NEW_FILE`) {
-          this.$store.dispatch(`${this.storeName}/closeColorPickers`);
-
           if (this.canvas) {
             self.canvasClear(this.canvas.instance)
           }
