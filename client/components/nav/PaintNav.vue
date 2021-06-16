@@ -64,7 +64,7 @@
             width: 100%;
             height: 3px;
             cursor: pointer;
-            background: lighten($owd-window-input-border-color, 12%);
+            background: $owd-window-button-icon-color;
             border-radius: 2px;
           }
 
@@ -72,7 +72,7 @@
             width: 12px;
             height: 12px;
             border-radius: 16px;
-            background: $owd-window-input-border-color;
+            background: $owd-window-button-icon-color;
             cursor: pointer;
             margin-top: -4.5px;
           }
