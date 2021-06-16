@@ -64,7 +64,7 @@
             width: 100%;
             height: 3px;
             cursor: pointer;
-            background: $owd-window-button-icon-color;
+            background: lighten($owd-window-button-icon-color, 12%);
             border-radius: 2px;
           }
 
