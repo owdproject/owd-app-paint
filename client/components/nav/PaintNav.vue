@@ -64,8 +64,9 @@
             width: 100%;
             height: 3px;
             cursor: pointer;
-            background: lighten($owd-window-button-icon-color, 12%);
+            background: $owd-window-button-icon-color;
             border-radius: 2px;
+            opacity: 0.75;
           }
 
           &::-webkit-slider-thumb {
