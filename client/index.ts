@@ -6,7 +6,7 @@ import paintStoreInstance from './storeInstance/index';
 import WindowPaint from "./windows/WindowPaint.vue";
 
 export default class PaintModule extends ModuleApp {
-  loadModule() {
+  setup() {
     return {
       name: "paint",
       singleton: false,
@@ -40,11 +40,11 @@ export default class PaintModule extends ModuleApp {
     }
   }
 
-  loadStoreInstance(context: OwdModuleAppLoadStoreContext) {
+  setupStoreInstance(context: OwdModuleAppLoadStoreContext) {
     return paintStoreInstance(context)
   }
 
-  loadCommands({store}: OwdModuleAppLoadCommandsContext) {
+  setupCommands({store}: OwdModuleAppLoadCommandsContext) {
     return {
       'paint': function () {
         store.dispatch('core/window/windowCreate', 'WindowPaint');
