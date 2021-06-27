@@ -20,16 +20,42 @@
 - Draw on canvas with p5.js
 
 ## Quick install
-- Copy the content of the `client` module folder into `owd-client/src/modules/paint`
-- Install each module dependency manually with `npm install <dependency>`
-- Add the reference of this module into `owd-client/config/modules.json`
+- Move to your client folder, then
+  ```
+  # Install this module with Npm
+  npm install hacklover/owd-app-paint
+  
+  # Or using Yarn
+  yarn add hacklover/owd-app-paint
+  ```
+- Define this module in `owd-client/client.extensions.ts`
+  ```js
+  import AboutModule from "@owd-client/core/src/modules/app/about";
+  import DebugModule from "@owd-client/core/src/modules/app/debug";
+  import PaintModule from "hacklover/owd-app-paint/client";
+
+  export default {
+    app: {
+      modules: [
+        AboutModule,
+        DebugModule,
+        PaintModule,
+      ]
+    },
+    ...
+  ```
+- Add this code to `owd-client/vite.config.ts`
+  ```
+  optimizeDeps: {
+    include: ['p5']
+  }
+  ```
 
 ## Dependencies
 - p5
-- hacklover/vue-color
 
 ## Compatibility
-- Open Web Desktop client v2.0.0-beta
+- Open Web Desktop client v2.0.0-beta.1
 
 ## License
 This project is released under the [MIT License](LICENSE)
