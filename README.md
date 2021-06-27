@@ -23,16 +23,16 @@
 - Move to your client folder, then
   ```
   # Install this module with Npm
-  npm install hacklover/owd-app-paint
+  npm install https://github.com/hacklover/owd-app-paint
   
   # Or using Yarn
-  yarn add hacklover/owd-app-paint
+  yarn add https://github.com/hacklover/owd-app-paint
   ```
 - Define this module in `owd-client/client.extensions.ts`
   ```js
   import AboutModule from "@owd-client/core/src/modules/app/about";
   import DebugModule from "@owd-client/core/src/modules/app/debug";
-  import PaintModule from "hacklover/owd-app-paint/client";
+  import PaintModule from "owd-app-paint/client";
 
   export default {
     app: {
