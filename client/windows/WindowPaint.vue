@@ -1,5 +1,5 @@
 <template>
-  <Window :window="props.window">
+  <WindowApp :window="props.window">
     <div :class="`paint-container paint-container-${props.window.uniqueName}`">
       <div>
         <PaintNav :storeName="props.window.uniqueName" />
@@ -8,11 +8,10 @@
         <PaintCanvas :storeName="props.window.uniqueName" />
       </div>
     </div>
-  </Window>
+  </WindowApp>
 </template>
 
 <script setup>
-  import Window from "@owd-client/core/src/components/window/app/WindowApp.vue";
   import PaintCanvas from "../components/canvas/PaintCanvas.vue";
   import PaintNav from "../components/nav/PaintNav.vue";
   import {defineProps} from "vue";
