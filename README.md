@@ -44,7 +44,7 @@
     },
     ...
   ```
-- Add this code to `owd-client/vite.config.ts`
+- Add this to `owd-client/vite.config.ts`
   ```
   optimizeDeps: {
     include: ['p5']
