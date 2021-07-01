@@ -139,8 +139,6 @@
       left: 0;
       width: 14px;
       height: 14px;
-      overflow: hidden;
-
       &:before {
         position: absolute;
         bottom: 3px;
@@ -175,7 +173,7 @@
 
       .v-icon {
         position: absolute;
-        color: #CCC;
+        color: $owd-window-button-icon-color;
 
         &.mdi-subdirectory-arrow-left {
           font-size: 16px;
