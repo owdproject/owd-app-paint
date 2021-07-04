@@ -1,5 +1,5 @@
 import {ModuleApp} from "@owd-client/core/index"
-import {OwdModuleAppLoadStoreContext, OwdModuleAppLoadCommandsContext} from "@owd-client/types";
+import {OwdModuleAppSetupStoreContext, OwdModuleAppSetupCommandsContext} from "@owd-client/types";
 import paintStoreInstance from './storeInstance/index';
 
 // window components
@@ -40,11 +40,11 @@ export default class PaintModule extends ModuleApp {
     }
   }
 
-  setupStoreInstance(context: OwdModuleAppLoadStoreContext) {
+  setupStoreInstance(context: OwdModuleAppSetupStoreContext) {
     return paintStoreInstance(context)
   }
 
-  setupCommands({store}: OwdModuleAppLoadCommandsContext) {
+  setupCommands({store}: OwdModuleAppSetupCommandsContext) {
     return {
       'paint': function () {
         store.dispatch('core/window/windowCreate', 'WindowPaint');
