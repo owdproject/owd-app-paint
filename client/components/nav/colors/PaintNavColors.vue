@@ -177,14 +177,14 @@
 
         &.mdi-subdirectory-arrow-left {
           font-size: 16px;
-          top: -4px;
-          right: -6px;
+          top: -2px;
+          right: -5px;
           transform: rotateZ(-90deg);
         }
 
         &.mdi-subdirectory-arrow-right {
           font-size: 16px;
-          top: -7px;
+          top: -5px;
           right: -3px;
           transform: rotateZ(180deg);
         }

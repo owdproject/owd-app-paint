@@ -23,7 +23,6 @@ export default class PaintModule extends ModuleApp {
             },
             size: "29px"
           },
-          minimized: false,
           resizable: true,
           maximizable: true,
           size: {
