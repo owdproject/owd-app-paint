@@ -1,4 +1,4 @@
-import {ModuleApp} from "@owd-client/core/index"
+import {ModuleApp, useDesktopApps} from "@owd-client/core/index"
 import {OwdModuleAppSetupStoreContext, OwdModuleAppSetupCommandsContext} from "@owd-client/types";
 import paintStoreInstance from './storeInstance/index';
 
@@ -46,7 +46,14 @@ export default class PaintModule extends ModuleApp {
   setupCommands({store}: OwdModuleAppSetupCommandsContext) {
     return {
       'paint': function () {
-        store.dispatch('core/window/windowCreate', 'WindowPaint');
+        const desktopApps = useDesktopApps()
+        const projectsModuleApp = desktopApps.findApp('paint')
+
+        if (projectsModuleApp) {
+          projectsModuleApp
+            .createWindow('WindowPaint')
+            .onMounted(windowInstance => windowInstance.open(true))
+        }
       }
     }
   }
