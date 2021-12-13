@@ -17,7 +17,7 @@ export default class PaintModule extends ModuleApp {
           category: "accessories",
           title: "Paint",
           icon: {
-            name: "mdi-format-color-fill",
+            name: "mdi mdi-format-color-fill",
             offset: {
               y: 3
             },
